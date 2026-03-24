@@ -1,3 +1,4 @@
+import "../../css/main.css";
 import { getListings } from "../api/listings";
 import { createListingCard } from "../ui/cards";
 
