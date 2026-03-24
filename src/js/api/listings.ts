@@ -12,6 +12,23 @@ export type Listing = {
   _count: {
     bids: number;
   };
+  seller?: {
+    name: string;
+    email: string;
+    avatar?: { url: string };
+  };
+  bids?: {
+    id: string;
+    amount: number;
+    bidder: {
+      name: string;
+      email: string;
+      avatar?: {
+        url: string;
+        alt?: string;
+      };
+    };
+  }[];
 };
 
 type ListingsResponse = {
@@ -30,7 +47,9 @@ export async function getListings(): Promise<Listing[]> {
 }
 
 export async function getListingById(id: string): Promise<Listing> {
-  const response = await fetch(`${BASE_URL}/auction/listings/${id}`);
+  const response = await fetch(
+    `${BASE_URL}/auction/listings/${id}?_seller=true&_bids=true`,
+  );
 
   if (!response.ok) {
     throw new Error(`Failed to fetch listing: ${response.status}`);

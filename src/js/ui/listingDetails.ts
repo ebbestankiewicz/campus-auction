@@ -6,30 +6,61 @@ export function createListingDetails(listing: Listing): string {
 
   const alt = listing.media?.[0]?.alt || listing.title;
 
+  const sellerName = listing.seller?.name || "Unknown seller";
+  const sellerEmail = listing.seller?.email || "No email available";
+
+  const highestBid = listing.bids?.length
+    ? Math.max(...listing.bids.map((bid) => bid.amount))
+    : 0;
+
+  const bidsHtml = listing.bids?.length
+    ? listing.bids
+        .map(
+          (bid) => `
+            <li>
+              <span>${bid.bidder.name}</span>
+              <span>${bid.amount}</span>
+            </li>
+          `,
+        )
+        .join("")
+    : `<li>No bids yet</li>`;
+
   return `
-    <article class="overflow-hidden rounded-2xl border border-slate-700 bg-slate-800 shadow-md">
-      <div class="grid gap-8 md:grid-cols-2">
-        <div class="h-80 bg-gray-200 md:h-full">
-          <img
-            src="${image}"
-            alt="${alt}"
-            class="h-full w-full object-cover"
-          />
+    <article>
+      <div>
+        <div>
+          <img src="${image}" alt="${alt}" />
         </div>
 
-        <div class="flex flex-col justify-between p-6">
+        <div>
           <div>
-            <h1 class="mb-4 text-3xl font-semibold">${listing.title}</h1>
-            <p class="mb-6 text-slate-300">
+            <h1>${listing.title}</h1>
+            <p>
               ${listing.description || "No description available."}
             </p>
           </div>
 
-          <div class="space-y-3">
-            <p>Bids: ${listing._count?.bids ?? 0}</p>
+          <div>
+            <h2>Seller</h2>
+            <p>Name: ${sellerName}</p>
+            <p>Email: ${sellerEmail}</p>
+          </div>
+
+          <div>
+            <h2>Auction info</h2>
+            <p>Total bids: ${listing._count?.bids ?? 0}</p>
+            <p>Highest bid: ${highestBid}</p>
             <p>Ends: ${new Date(listing.endsAt).toLocaleString()}</p>
           </div>
         </div>
+      </div>
+
+      <div>
+        <h2>Bid history</h2>
+        <ul>
+          ${bidsHtml}
+        </ul>
       </div>
     </article>
   `;
