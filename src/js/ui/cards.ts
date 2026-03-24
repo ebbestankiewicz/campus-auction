@@ -7,7 +7,7 @@ export function createListingCard(listing: Listing): string {
   const alt = listing.media?.[0]?.alt || listing.title;
 
   return `
-  <a href="/listings/${listing.id}" class="block">
+  <a href="/listing.html?id=${listing.id}" class="block">
       <article class="overflow-hidden rounded-2xl border border-slate-700 bg-slate-800 shadow-md">
       <div class="h-72 w-full bg-gray-200">
           <img 
