@@ -35,6 +35,10 @@ type ListingsResponse = {
   data: Listing[];
 };
 
+type ListingResponse = {
+  data: Listing;
+};
+
 export async function getListings(): Promise<Listing[]> {
   const response = await fetch(`${BASE_URL}/auction/listings`);
 
