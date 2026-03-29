@@ -2,6 +2,7 @@ import "../../css/main.css";
 import { getListings } from "../api/listings";
 import { createListingCard } from "../ui/cards";
 import { renderNavbar } from "../ui/navbar";
+import type { Listing } from "../api/listings";
 
 let allListings: Listing[] = [];
 
@@ -30,11 +31,14 @@ function setupSearch() {
   if (!input || !container || !clearBtn) return;
 
   input.addEventListener("input", () => {
-    const value = input.value.toLowerCase();
+    const value = input.value.toLowerCase().trim();
 
-    const filtered = allListings.filter((listing) =>
-      listing.title.toLowerCase().includes(value),
-    );
+    const filtered = allListings.filter((listing) => {
+      const title = listing.title.toLowerCase();
+      const description = listing.description?.toLowerCase() || "";
+
+      return title.includes(value) || description.includes(value);
+    });
 
     container.innerHTML = filtered.map(createListingCard).join("");
 
@@ -47,13 +51,9 @@ function setupSearch() {
 
   clearBtn.addEventListener("click", () => {
     input.value = "";
-
     container.innerHTML = allListings.map(createListingCard).join("");
 
-    if (noResults) {
-      noResults.classList.add("hidden");
-    }
-
+    noResults?.classList.add("hidden");
     clearBtn.classList.add("hidden");
 
     input.focus();
@@ -61,5 +61,5 @@ function setupSearch() {
 }
 
 renderNavbar();
-setupSearch();
 loadListings();
+setupSearch();
