@@ -4,10 +4,12 @@ export type Listing = {
   id: string;
   title: string;
   description: string;
+  tags?: string[];
   media: {
     url: string;
     alt?: string;
   }[];
+  created: string;
   endsAt: string;
   _count: {
     bids: number;
