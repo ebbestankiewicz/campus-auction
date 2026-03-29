@@ -1,4 +1,4 @@
-const BASE_URL = "https://v2.api.noroff.dev";
+import { BASE_URL } from "./constants";
 
 type RegisterData = {
   name: string;
