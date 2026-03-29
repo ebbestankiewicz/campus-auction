@@ -1,6 +1,9 @@
 import "../../css/main.css";
 import { getListings } from "../api/listings";
 import { createListingCard } from "../ui/cards";
+import { renderNavbar } from "../ui/navbar";
+
+renderNavbar();
 
 async function loadListings() {
   const listingsContainer = document.querySelector<HTMLDivElement>("#listings");
