@@ -10,13 +10,36 @@
     <header>
       <div id="navbar"></div>
     </header>
-    <main>
-      <h1 class="text-2xl font-semibold pl-6 pt-6 mx-auto max-w-[1200px]">
-        Active Listings
-      </h1>
+    <main class="max-w-[1200px] mx-auto">
+      <div class="p-6">
+        <h1 class="text-2xl font-semibold mx-auto">Browse listings</h1>
+        <p>Discover items from Noroff students</p>
+      </div>
+      <div class="p-6">
+        <div class="relative">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search listings..."
+            class="w-full border rounded px-4 py-2 pr-10 text-black"
+          />
+
+          <button
+            id="clearSearch"
+            type="button"
+            class="absolute right-3 top-1/2 -translate-y-1/2 hidden text-gray-500 hover:text-black"
+          >
+            ✕
+          </button>
+        </div>
+
+        <p id="noResults" class="hidden mt-2 text-sm text-gray-400">
+          No listings found.
+        </p>
+      </div>
       <section
         id="listings"
-        class="mx-auto max-w-[1200px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch p-6"
+        class="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch p-6"
       ></section>
     </main>
     <script type="module" src="/src/js/pages/home.ts"></script>
