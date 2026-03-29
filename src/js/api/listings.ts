@@ -3,7 +3,7 @@ const BASE_URL = "https://v2.api.noroff.dev";
 export type Listing = {
   id: string;
   title: string;
-  description: string;
+  description?: string;
   tags?: string[];
   media: {
     url: string;
