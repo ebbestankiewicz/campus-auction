@@ -6,6 +6,44 @@
     <title>Register</title>
   </head>
   <body>
+    <header>
+      <div id="navbar"></div>
+    </header>
+
+    <main class="max-w-[600px] mx-auto p-6">
+      <h1 class="text-2xl font-semibold mb-6">Register</h1>
+
+      <form id="registerForm" class="flex flex-col gap-4">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" class="border p-2 w-full" />
+        </div>
+
+        <div>
+          <label for="email">Student email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            class="border p-2 w-full"
+          />
+        </div>
+
+        <div>
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            class="border p-2 w-full"
+          />
+        </div>
+
+        <p id="registerMessage" class="text-sm"></p>
+
+        <button type="submit" class="border px-4 py-2">Register</button>
+      </form>
+    </main>
     <script type="module" src="/src/js/pages/register.ts"></script>
   </body>
 </html>
