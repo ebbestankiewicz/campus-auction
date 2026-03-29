@@ -23,3 +23,21 @@ export async function registerUser(data: RegisterData) {
 
   return json.data;
 }
+
+export async function loginUser(data: LoginData) {
+  const response = await fetch(`${BASE_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.errors?.[0]?.message || "Login failed");
+  }
+
+  return json.data;
+}
