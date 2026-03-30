@@ -39,7 +39,12 @@ function setupLoginForm(): void {
       const user = await loginUser({ email, password });
 
       saveAccessToken(user.accessToken);
-      saveUser(user);
+      saveUser({
+        name: user.name,
+        email: user.email,
+        credits: user.credits,
+        avatar: user.avatar,
+      });
 
       showMessage("Login successful. Redirecting...", false);
 
