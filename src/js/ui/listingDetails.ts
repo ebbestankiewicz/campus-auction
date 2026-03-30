@@ -27,7 +27,7 @@ export function createListingDetails(listing: Listing): string {
     : `<li>No bids yet</li>`;
 
   return `
-    <article class="mx-auto max-w-[800px] p-6 text-white border border-slate-700 shadow-md">
+    <article class="mx-auto max-w-200 p-6 text-white border border-slate-700 shadow-md">
       <div>
         <div>
           <img src="${image}" alt="${alt}" class="rounded-2xl border border-slate-600 bg-white" />

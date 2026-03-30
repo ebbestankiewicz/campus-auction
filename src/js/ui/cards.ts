@@ -15,7 +15,7 @@ export function createListingCard(listing: Listing): string {
             alt="${alt}" 
             class="h-full w-full object-cover" />
         </div>
-        <div class="flex min-h-[220px] flex-col justify-between bg-slate-800 p-6 text-white">
+        <div class="flex min-h-55 flex-col justify-between bg-slate-800 p-6 text-white">
           <div>
             <h2 class="mb-3 text-2xl font-semibold leading-tight">
             ${listing.title}</h2>
