@@ -1,4 +1,5 @@
 import { BASE_URL } from "./constants";
+import { fetchWithAuth } from "./fetchWithAuth";
 
 export type Listing = {
   id: string;
@@ -62,5 +63,27 @@ export async function getListingById(id: string): Promise<Listing> {
   }
 
   const json: ListingResponse = await response.json();
+  return json.data;
+}
+
+type BidResponse = {
+  data: Listing;
+};
+
+export async function placeBid(
+  listingId: string,
+  amount: number,
+): Promise<Listing> {
+  const response = await fetchWithAuth(`/auction/listings/${listingId}/bids`, {
+    method: "POST",
+    body: JSON.stringify({ amount }),
+  });
+
+  const json: BidResponse = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to place bid");
+  }
+
   return json.data;
 }
