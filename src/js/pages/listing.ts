@@ -1,5 +1,5 @@
 import "../../css/main.css";
-import { getListingById, placeBid } from "../api/listings";
+import { getListingById, placeBid, deleteListing } from "../api/listings";
 import { createListingDetails } from "../ui/listingDetails";
 import { renderNavbar } from "../ui/navbar";
 
@@ -56,8 +56,13 @@ async function loadListing(): Promise<void> {
 
   try {
     const listing = await getListingById(id);
+
+    // Render HTML first
     listingContainer.innerHTML = createListingDetails(listing);
+
+    // THEN attach events
     setupBidForm();
+    setupDelete();
   } catch (error) {
     console.error(error);
     listingContainer.innerHTML = `<p class="text-white">Failed to load listing.</p>`;
@@ -88,7 +93,7 @@ function setupBidForm(): void {
       showBidMessage("Bid placed successfully.", "success");
 
       setTimeout(() => {
-        loadListing();
+        loadListing(); // refresh listing after bid
       }, 700);
     } catch (error) {
       console.error(error);
@@ -97,6 +102,26 @@ function setupBidForm(): void {
         error instanceof Error ? error.message : "Failed to place bid.";
 
       showBidMessage(message, "error");
+    }
+  });
+}
+
+function setupDelete(): void {
+  const btn = document.querySelector<HTMLButtonElement>("#deleteListingBtn");
+
+  if (!btn || !currentListingId) return;
+
+  btn.addEventListener("click", async () => {
+    const confirmed = confirm("Are you sure you want to delete this listing?");
+
+    if (!confirmed) return;
+
+    try {
+      await deleteListing(currentListingId);
+      window.location.href = "/index.html";
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete listing.");
     }
   });
 }

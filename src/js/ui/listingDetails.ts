@@ -1,5 +1,5 @@
 import type { Listing } from "../api/listings";
-import { isLoggedIn } from "../utils/storage";
+import { getUser, isLoggedIn } from "../utils/storage";
 
 export function createListingDetails(listing: Listing): string {
   const image =
@@ -10,6 +10,30 @@ export function createListingDetails(listing: Listing): string {
   const highestBid = listing.bids?.length
     ? Math.max(...listing.bids.map((bid) => bid.amount))
     : 0;
+
+  const user = getUser();
+  const isOwner = user?.name === listing.seller?.name;
+
+  const ownerActions = isOwner
+    ? `
+      <div class="mt-4 flex gap-3">
+        <a
+          href="/edit-listing.html?id=${listing.id}"
+          class="rounded-xl border border-purple-500 px-4 py-2 text-sm font-semibold text-purple-300 transition hover:bg-purple-500 hover:text-white"
+        >
+          Edit
+        </a>
+
+        <button
+          id="deleteListingBtn"
+          type="button"
+          class="rounded-xl border border-red-500 px-4 py-2 text-sm font-semibold text-red-400 transition hover:bg-red-500 hover:text-white"
+        >
+          Delete
+        </button>
+      </div>
+    `
+    : "";
 
   const bidsHtml = listing.bids?.length
     ? listing.bids
@@ -25,42 +49,49 @@ export function createListingDetails(listing: Listing): string {
         .join("")
     : `<li class="rounded-xl border border-slate-800 bg-slate-900 p-4 text-slate-400">No bids yet</li>`;
 
-  const bidSection = isLoggedIn()
-    ? `
-      <form id="bidForm" class="mt-6 rounded-2xl border border-slate-800 bg-slate-900 p-5">
-        <label for="bidAmount" class="mb-2 block text-sm font-medium text-slate-300">
-          Place bid
-        </label>
-
-        <div class="flex flex-col gap-3 sm:flex-row">
-          <input
-            id="bidAmount"
-            type="number"
-            min="${highestBid + 1}"
-            placeholder="Minimum ${highestBid + 1}"
-            class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-purple-500"
-            required
-          />
-
-          <button
-            type="submit"
-            class="rounded-xl bg-purple-600 px-5 py-3 font-semibold text-white transition hover:bg-purple-700"
-          >
+  const bidSection =
+    isLoggedIn() && !isOwner
+      ? `
+        <form id="bidForm" class="mt-6 rounded-2xl border border-slate-800 bg-slate-900 p-5">
+          <label for="bidAmount" class="mb-2 block text-sm font-medium text-slate-300">
             Place bid
-          </button>
-        </div>
+          </label>
 
-        <p id="bidMessage" class="mt-3 hidden rounded-xl p-3 text-sm"></p>
-      </form>
-    `
-    : `
-      <div class="mt-6 rounded-2xl border border-slate-800 bg-slate-900 p-5">
-        <p class="text-slate-300">Log in to place a bid.</p>
-        <a href="/login.html" class="mt-3 inline-flex rounded-xl bg-purple-600 px-5 py-3 font-semibold text-white transition hover:bg-purple-700">
-          Login
-        </a>
-      </div>
-    `;
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <input
+              id="bidAmount"
+              type="number"
+              min="${highestBid + 1}"
+              placeholder="Minimum ${highestBid + 1}"
+              class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-purple-500"
+              required
+            />
+
+            <button
+              type="submit"
+              class="rounded-xl bg-purple-600 px-5 py-3 font-semibold text-white transition hover:bg-purple-700"
+            >
+              Place bid
+            </button>
+          </div>
+
+          <p id="bidMessage" class="mt-3 hidden rounded-xl p-3 text-sm"></p>
+        </form>
+      `
+      : isOwner
+        ? `
+          <div class="mt-6 rounded-2xl border border-slate-800 bg-slate-900 p-5 text-slate-300">
+            You cannot bid on your own listing.
+          </div>
+        `
+        : `
+          <div class="mt-6 rounded-2xl border border-slate-800 bg-slate-900 p-5">
+            <p class="text-slate-300">Log in to place a bid.</p>
+            <a href="/login.html" class="mt-3 inline-flex rounded-xl bg-purple-600 px-5 py-3 font-semibold text-white transition hover:bg-purple-700">
+              Login
+            </a>
+          </div>
+        `;
 
   return `
     <section class="mx-auto max-w-5xl space-y-8 text-white">
@@ -69,8 +100,13 @@ export function createListingDetails(listing: Listing): string {
 
         <div class="space-y-6 p-6">
           <div>
+            <p class="mb-2 text-sm text-slate-400">Listed by ${sellerName}</p>
             <h1 class="text-3xl font-bold">${listing.title}</h1>
-            <p class="mt-2 text-slate-400">${listing.description || "No description available."}</p>
+            <p class="mt-2 text-slate-400">
+              ${listing.description || "No description available."}
+            </p>
+
+            ${ownerActions}
           </div>
 
           <div class="grid gap-4 sm:grid-cols-3">

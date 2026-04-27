@@ -120,3 +120,31 @@ export async function createListing(data: CreateListingData): Promise<Listing> {
 
   return json.data;
 }
+
+export async function updateListing(
+  id: string,
+  data: CreateListingData,
+): Promise<Listing> {
+  const response = await fetchWithAuth(`/auction/listings/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to update listing");
+  }
+
+  return json.data;
+}
+
+export async function deleteListing(id: string): Promise<void> {
+  const response = await fetchWithAuth(`/auction/listings/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete listing");
+  }
+}
