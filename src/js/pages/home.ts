@@ -40,7 +40,7 @@ function applyFilters(): void {
 
   const searchValue = input.value.toLowerCase().trim();
   const selectedTag = tagFilter?.value || "";
-  const sortValue = sortSelect?.value || "endingSoon";
+  const sortValue = sortSelect?.value || "newest";
 
   let filteredListings = [...allListings];
 
@@ -98,7 +98,7 @@ function setupSearchAndFilter(): void {
     }
 
     if (sortSelect) {
-      sortSelect.value = "endingSoon";
+      sortSelect.value = "newest";
     }
 
     noResults?.classList.add("hidden");

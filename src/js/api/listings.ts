@@ -43,7 +43,9 @@ type ListingResponse = {
 };
 
 export async function getListings(): Promise<Listing[]> {
-  const response = await fetch(`${BASE_URL}/auction/listings`);
+  const response = await fetch(
+    `${BASE_URL}/auction/listings?sort=created&sortOrder=desc&_seller=true&_bids=true`,
+  );
 
   if (!response.ok) {
     throw new Error(`Failed to fetch listings: ${response.status}`);
