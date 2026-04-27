@@ -1,65 +1,106 @@
-import type { Profile } from "../api/profiles";
+import type { Profile, ProfileListing } from "../api/profiles";
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function createMiniListingCard(listing: ProfileListing): string {
+  const image =
+    listing.media?.[0]?.url || "https://placehold.co/600x400?text=No+image";
+  const alt = listing.media?.[0]?.alt || listing.title;
+
+  return `
+    <a href="/listing.html?id=${listing.id}" class="block overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-sm transition hover:-translate-y-1 hover:border-purple-500 hover:shadow-lg">
+      <img src="${image}" alt="${escapeHtml(alt)}" class="h-40 w-full object-cover" />
+      <div class="space-y-2 p-4">
+        <h3 class="line-clamp-1 text-lg font-semibold text-white">${escapeHtml(listing.title)}</h3>
+        <p class="line-clamp-2 text-sm text-slate-400">${escapeHtml(listing.description || "No description available.")}</p>
+        <p class="text-xs text-slate-500">Ends ${new Date(listing.endsAt).toLocaleDateString()}</p>
+      </div>
+    </a>
+  `;
+}
 
 export function createProfileDetails(profile: Profile): string {
   const avatar =
-    profile.avatar?.url || "https://placehold.co/200x200?text=No+avatar";
+    profile.avatar?.url || "https://placehold.co/200x200?text=Avatar";
+  const avatarAlt = profile.avatar?.alt || `${profile.name}'s avatar`;
 
   const banner =
-    profile.banner?.url || "https://placehold.co/1200x300?text=No+banner";
+    profile.banner?.url || "https://placehold.co/1200x320?text=Profile+banner";
+  const bannerAlt = profile.banner?.alt || `${profile.name}'s banner`;
 
   const bio = profile.bio || "No bio added yet.";
 
   const listingsHtml = profile.listings?.length
-    ? profile.listings
-        .map(
-          (listing) => `
-            <article>
-              <h3>${listing.title}</h3>
-              <p>${listing.description || "No description available."}</p>
-            </article>
-          `,
-        )
-        .join("")
-    : `<p>No listings yet.</p>`;
+    ? profile.listings.map(createMiniListingCard).join("")
+    : `<p class="rounded-xl border border-slate-800 bg-slate-900 p-4 text-slate-400">No listings created yet.</p>`;
 
   const winsHtml = profile.wins?.length
-    ? profile.wins
-        .map(
-          (listing) => `
-            <article>
-              <h3>${listing.title}</h3>
-              <p>${listing.description || "No description available."}</p>
-            </article>
-          `,
-        )
-        .join("")
-    : `<p>No wins yet.</p>`;
+    ? profile.wins.map(createMiniListingCard).join("")
+    : `<p class="rounded-xl border border-slate-800 bg-slate-900 p-4 text-slate-400">No wins yet.</p>`;
 
   return `
-    <section>
-      <div>
-        <img src="${banner}" alt="${profile.banner?.alt || profile.name}" />
+    <section class="space-y-8 text-white">
+      <div class="overflow-hidden rounded-3xl border border-slate-800 bg-slate-950 shadow-xl">
+        <img src="${banner}" alt="${escapeHtml(bannerAlt)}" class="h-48 w-full object-cover sm:h-64" />
+
+        <div class="relative px-6 pb-6">
+          <img src="${avatar}" alt="${escapeHtml(avatarAlt)}" class="-mt-16 h-32 w-32 rounded-full border-4 border-slate-950 object-cover shadow-lg" />
+
+          <div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h1 class="text-3xl font-bold">${escapeHtml(profile.name)}</h1>
+              <p class="text-sm text-slate-400">${escapeHtml(profile.email)}</p>
+            </div>
+
+            <a href="/edit-profile.html" class="inline-flex items-center justify-center rounded-xl border border-purple-500 px-5 py-2 text-sm font-semibold text-purple-300 transition hover:bg-purple-500 hover:text-white">
+              Edit profile
+            </a>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <img src="${avatar}" alt="${profile.avatar?.alt || profile.name}" />
-        <h1>${profile.name}</h1>
-        <p>${profile.email}</p>
-        <p>${bio}</p>
-        <p>Credits: ${profile.credits}</p>
-        <p>Listings: ${profile._count?.listings ?? 0}</p>
-        <p>Wins: ${profile._count?.wins ?? 0}</p>
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+          <p class="text-sm text-slate-400">Credits</p>
+          <p class="mt-1 text-2xl font-bold text-purple-300">${profile.credits}</p>
+        </article>
+
+        <article class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+          <p class="text-sm text-slate-400">Listings</p>
+          <p class="mt-1 text-2xl font-bold">${profile._count?.listings ?? profile.listings?.length ?? 0}</p>
+        </article>
+
+        <article class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+          <p class="text-sm text-slate-400">Wins</p>
+          <p class="mt-1 text-2xl font-bold">${profile._count?.wins ?? profile.wins?.length ?? 0}</p>
+        </article>
       </div>
 
-      <div>
-        <h2>My listings</h2>
-        ${listingsHtml}
-      </div>
+      <article class="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+        <h2 class="text-xl font-semibold">Bio</h2>
+        <p class="mt-3 leading-relaxed text-slate-300">${escapeHtml(bio)}</p>
+      </article>
 
-      <div>
-        <h2>My wins</h2>
-        ${winsHtml}
-      </div>
+      <section>
+        <h2 class="mb-4 text-2xl font-bold">My listings</h2>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          ${listingsHtml}
+        </div>
+      </section>
+
+      <section>
+        <h2 class="mb-4 text-2xl font-bold">My wins</h2>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          ${winsHtml}
+        </div>
+      </section>
     </section>
   `;
 }
