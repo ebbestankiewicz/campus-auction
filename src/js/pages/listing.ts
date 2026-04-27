@@ -92,7 +92,11 @@ function setupBidForm(): void {
       }, 700);
     } catch (error) {
       console.error(error);
-      showBidMessage("Failed to place bid. Your bid may be too low.", "error");
+
+      const message =
+        error instanceof Error ? error.message : "Failed to place bid.";
+
+      showBidMessage(message, "error");
     }
   });
 }

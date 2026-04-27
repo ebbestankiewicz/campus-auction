@@ -79,10 +79,11 @@ export async function placeBid(
     body: JSON.stringify({ amount }),
   });
 
-  const json: BidResponse = await response.json();
+  const json = await response.json();
 
   if (!response.ok) {
-    throw new Error("Failed to place bid");
+    console.error("Bid API error:", json);
+    throw new Error(json.errors?.[0]?.message || "Failed to place bid");
   }
 
   return json.data;
