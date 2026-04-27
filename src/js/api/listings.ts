@@ -88,3 +88,33 @@ export async function placeBid(
 
   return json.data;
 }
+
+export type CreateListingData = {
+  title: string;
+  description?: string;
+  tags?: string[];
+  media?: {
+    url: string;
+    alt?: string;
+  }[];
+  endsAt: string;
+};
+
+type CreateListingResponse = {
+  data: Listing;
+};
+
+export async function createListing(data: CreateListingData): Promise<Listing> {
+  const response = await fetchWithAuth("/auction/listings", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+  const json: CreateListingResponse = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to create listing");
+  }
+
+  return json.data;
+}
