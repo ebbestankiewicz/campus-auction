@@ -7,17 +7,21 @@ function createVisitorNavbar(): string {
       <a href="/index.html" class="text-lg font-bold">Campus Auction</a>
 
       <div class="flex gap-3">
-        <a href="/login.html" class="rounded-xl border border-purple-500 px-4 py-2 text-sm font-semibold text-purple-300 hover:bg-purple-500 hover:text-white">Login</a>
-        <a href="/register.html" class="rounded-xl bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-700">Register</a>
+        <a href="/login.html" class="rounded-xl border border-purple-500 px-4 py-2 text-sm font-semibold text-purple-300 hover:bg-purple-500 hover:text-white">
+          Login
+        </a>
+        <a href="/register.html" class="rounded-xl bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-700">
+          Register
+        </a>
       </div>
     </nav>
   `;
 }
 
-function createLoggedInNavbar(credits: number): string {
+function createLoggedInNavbar(credits: number, avatarUrl?: string): string {
   const user = getUser();
   const name = user?.name || "Profile";
-  const avatar = user?.avatar?.url || "";
+  const avatar = avatarUrl || user?.avatar?.url || "";
 
   return `
     <nav class="flex items-center justify-between px-6 py-4 text-white">
@@ -65,11 +69,15 @@ export async function renderNavbar(): Promise<void> {
     return;
   }
 
-  container.innerHTML = createLoggedInNavbar(0);
+  container.innerHTML = createLoggedInNavbar(0, user.avatar?.url);
 
   try {
     const profile = await getProfile(user.name);
-    container.innerHTML = createLoggedInNavbar(profile.credits);
+
+    container.innerHTML = createLoggedInNavbar(
+      profile.credits,
+      profile.avatar?.url,
+    );
   } catch (error) {
     console.error(error);
   }
