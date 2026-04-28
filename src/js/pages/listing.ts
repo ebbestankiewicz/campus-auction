@@ -11,29 +11,20 @@ function showBidMessage(message: string, type: "success" | "error"): void {
   if (!messageElement) return;
 
   messageElement.textContent = message;
-  messageElement.classList.remove(
-    "hidden",
-    "bg-red-950",
-    "text-red-300",
-    "border-red-800",
-    "bg-green-950",
-    "text-green-300",
-    "border-green-800",
-  );
+
+  messageElement.className = "mt-3 rounded-xl border p-3 text-sm";
 
   if (type === "success") {
     messageElement.classList.add(
-      "bg-green-950",
-      "text-green-300",
-      "border",
-      "border-green-800",
+      "bg-success-soft",
+      "text-success-muted",
+      "border-success",
     );
   } else {
     messageElement.classList.add(
-      "bg-red-950",
-      "text-red-300",
-      "border",
-      "border-red-800",
+      "bg-danger-soft",
+      "text-danger-muted",
+      "border-danger",
     );
   }
 }
@@ -50,7 +41,7 @@ async function loadListing(): Promise<void> {
   currentListingId = id;
 
   if (!id) {
-    listingContainer.innerHTML = `<p class="text-white">Listing ID is missing.</p>`;
+    listingContainer.innerHTML = `<p class="text-muted">Listing ID is missing.</p>`;
     return;
   }
 
@@ -65,7 +56,7 @@ async function loadListing(): Promise<void> {
     setupDelete();
   } catch (error) {
     console.error(error);
-    listingContainer.innerHTML = `<p class="text-white">Failed to load listing.</p>`;
+    listingContainer.innerHTML = `<p class="text-muted">Failed to load listing.</p>`;
   }
 }
 
