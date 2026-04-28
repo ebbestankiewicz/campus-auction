@@ -7,27 +7,38 @@ export function createListingCard(listing: Listing): string {
   const alt = listing.media?.[0]?.alt || listing.title;
 
   return `
-  <a href="/listing.html?id=${listing.id}" class="block">
-      <article class="overflow-hidden rounded-2xl border border-slate-700 bg-slate-800 shadow-md">
-      <div class="h-72 w-full bg-gray-200">
+    <a href="/listing.html?id=${listing.id}" class="block group">
+      <article class="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-md transition hover:-translate-y-1 hover:border-primary hover:shadow-xl">
+        
+        <div class="h-56 w-full overflow-hidden">
           <img 
             src="${image}" 
             alt="${alt}" 
-            class="h-full w-full object-cover" />
+            class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+          />
         </div>
-        <div class="flex min-h-55 flex-col justify-between bg-slate-800 p-6 text-white">
+        <div class="flex flex-1 flex-col justify-between p-5">
+          
           <div>
-            <h2 class="mb-3 text-2xl font-semibold leading-tight">
-            ${listing.title}</h2>
-            <p class="text-base leading-snug text-slate-300 line-clamp-2">
+            <h2 class="mb-2 line-clamp-1 text-lg font-semibold text-text">
+              ${listing.title}
+            </h2>
+
+            <p class="line-clamp-2 text-sm text-muted">
               ${listing.description || "No description available."}
             </p>
           </div>
+
           <div class="mt-4 flex items-center justify-between">
-            <p class="text-sm">Bids: ${listing._count?.bids ?? 0}</p>
-            <p class="rounded-full bg-violet-500 px-4 py-2 text-xs font-semibold text-white">
-            Ends: ${new Date(listing.endsAt).toLocaleString()}</p>
+            <p class="text-xs text-muted">
+              Bids: ${listing._count?.bids ?? 0}
+            </p>
+
+            <span class="rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-primary-muted">
+              Ends: ${new Date(listing.endsAt).toLocaleDateString()}
+            </span>
           </div>
+
         </div>
       </article>
     </a>
