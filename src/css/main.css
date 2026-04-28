@@ -6,10 +6,14 @@
   --color-surface-soft: #1e293b;
   --color-border: #1e293b;
 
-  --color-primary: #9333ea;
-  --color-primary-hover: #7e22ce;
-  --color-primary-soft: #581c87;
-  --color-primary-muted: #d8b4fe;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-soft: #dbeafe;
+  --color-primary-muted: #93c5fd;
+
+  --color-accent: #8b5cf6;
+  --color-accent-soft: #ede9fe;
+  --color-accent-muted: #c4b5fd;
 
   --color-danger: #ef4444;
   --color-danger-soft: #450a0a;
