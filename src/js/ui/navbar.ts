@@ -25,11 +25,11 @@ function createLoggedInNavbar(credits: number, avatarUrl?: string): string {
 
   return `
     <nav class="flex items-center justify-between border-b border-border bg-bg px-6 py-4 text-text">
-      <a href="/index.html" class="text-lg font-bold">Campus Auction</a>
+      <a href="/index.html" class="text-lg font-semibold">Campus Auction</a>
 
       <div class="flex items-center gap-4">
-        <span class="rounded-full border border-primary bg-primary-soft px-4 py-2 text-sm font-semibold text-primary-muted">
-          Credits: ${credits}
+        <span class="rounded-xl border border-muted-soft px-4 py-2 text-sm font-semibold text-text">
+          $ ${credits}
         </span>
 
         <a href="/profile.html" class="flex items-center gap-2">

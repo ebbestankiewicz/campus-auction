@@ -34,7 +34,7 @@ export function createListingCard(listing: Listing): string {
               Bids: ${listing._count?.bids ?? 0}
             </p>
 
-            <span class="rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-primary-muted">
+            <span class="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-text">
               Ends: ${new Date(listing.endsAt).toLocaleDateString()}
             </span>
           </div>
