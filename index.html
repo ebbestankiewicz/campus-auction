@@ -6,51 +6,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
   </head>
-  <body>
+
+  <body class="bg-bg text-text">
     <header>
       <div id="navbar"></div>
     </header>
-    <main class="max-w-300 mx-auto">
+
+    <main class="mx-auto max-w-300 space-y-6">
       <div class="p-6">
-        <h1 class="text-2xl font-semibold mx-auto">Browse listings</h1>
-        <p>Discover items from Noroff students</p>
+        <h1 class="text-2xl font-semibold">Browse listings</h1>
+        <p class="text-muted mt-1">Discover items from Noroff students</p>
       </div>
-      <div class="p-6">
+      <div class="p-6 space-y-4">
         <div class="relative">
           <input
             id="searchInput"
             type="text"
             placeholder="Search listings..."
-            class="w-full border rounded px-4 py-2 pr-10 text-black"
+            class="w-full rounded-xl border border-border bg-surface px-4 py-2 pr-10 text-text placeholder:text-muted outline-none focus:border-primary"
           />
 
           <button
             id="clearSearch"
             type="button"
-            class="absolute right-3 top-1/2 -translate-y-1/2 hidden text-gray-500 hover:text-black"
+            class="absolute right-3 top-1/2 -translate-y-1/2 hidden text-muted hover:text-text"
           >
             ✕
           </button>
         </div>
-        <div class="mt-4 flex flex-col gap-3 sm:flex-row">
-          <select id="sortSelect" class="border rounded px-4 py-2 text-black">
+
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <select
+            id="sortSelect"
+            class="rounded-xl border border-border bg-surface px-4 py-2 text-text outline-none focus:border-primary"
+          >
             <option value="newest">Newest</option>
             <option value="endingSoon">Ending soon</option>
           </select>
 
-          <select id="tagFilter" class="border rounded px-4 py-2 text-black">
+          <select
+            id="tagFilter"
+            class="rounded-xl border border-border bg-surface px-4 py-2 text-text outline-none focus:border-primary"
+          >
             <option value="">All categories</option>
           </select>
         </div>
-        <p id="noResults" class="hidden mt-2 text-sm text-gray-400">
+
+        <p id="noResults" class="hidden text-sm text-muted">
           No listings found.
         </p>
       </div>
+
       <section
         id="listings"
-        class="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch p-6"
+        class="mx-auto grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3"
       ></section>
     </main>
+
     <script type="module" src="/src/js/pages/home.ts"></script>
   </body>
 </html>
