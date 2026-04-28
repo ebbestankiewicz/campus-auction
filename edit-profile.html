@@ -5,60 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Profile</title>
   </head>
-  <body class="bg-slate-950 text-white">
+
+  <body class="bg-bg text-text">
     <header>
       <div id="navbar"></div>
     </header>
 
     <main class="mx-auto max-w-3xl p-6">
       <section
-        class="rounded-3xl border border-slate-800 bg-slate-900 p-6 shadow-xl"
+        class="rounded-3xl border border-border bg-surface p-6 shadow-xl"
       >
         <div class="mb-6">
           <h1 class="text-3xl font-bold">Edit profile</h1>
-          <p class="mt-2 text-slate-400">Update your bio, avatar and banner.</p>
+          <p class="mt-2 text-muted">Update your bio, avatar and banner.</p>
         </div>
 
         <form id="editProfileForm" class="space-y-5">
           <div>
             <label
               for="avatarUrl"
-              class="mb-2 block text-sm font-medium text-slate-300"
-              >Avatar URL</label
+              class="mb-2 block text-sm font-medium text-muted"
             >
+              Avatar URL
+            </label>
             <input
               id="avatarUrl"
               type="url"
-              class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-purple-500"
               placeholder="https://example.com/avatar.jpg"
+              class="w-full rounded-xl border border-border bg-bg px-4 py-3 text-text outline-none placeholder:text-muted focus:border-primary"
             />
           </div>
 
           <div>
             <label
               for="bannerUrl"
-              class="mb-2 block text-sm font-medium text-slate-300"
-              >Banner URL</label
+              class="mb-2 block text-sm font-medium text-muted"
             >
+              Banner URL
+            </label>
             <input
               id="bannerUrl"
               type="url"
-              class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-purple-500"
               placeholder="https://example.com/banner.jpg"
+              class="w-full rounded-xl border border-border bg-bg px-4 py-3 text-text outline-none placeholder:text-muted focus:border-primary"
             />
           </div>
 
           <div>
-            <label
-              for="bio"
-              class="mb-2 block text-sm font-medium text-slate-300"
-              >Bio</label
-            >
+            <label for="bio" class="mb-2 block text-sm font-medium text-muted">
+              Bio
+            </label>
             <textarea
               id="bio"
               rows="5"
-              class="w-full resize-none rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-purple-500"
               placeholder="Tell other students about yourself"
+              class="w-full resize-none rounded-xl border border-border bg-bg px-4 py-3 text-text outline-none placeholder:text-muted focus:border-primary"
             ></textarea>
           </div>
 
@@ -67,14 +68,14 @@
           <div class="flex flex-col gap-3 sm:flex-row">
             <button
               type="submit"
-              class="rounded-xl bg-purple-600 px-5 py-3 font-semibold text-white transition hover:bg-purple-700"
+              class="rounded-xl bg-primary px-5 py-3 font-semibold text-text transition hover:bg-primary-hover"
             >
               Save changes
             </button>
 
             <a
               href="/profile.html"
-              class="rounded-xl border border-slate-700 px-5 py-3 text-center font-semibold text-slate-300 transition hover:border-purple-500 hover:text-white"
+              class="rounded-xl border border-border px-5 py-3 text-center font-semibold text-muted transition hover:border-primary hover:text-text"
             >
               Cancel
             </a>
