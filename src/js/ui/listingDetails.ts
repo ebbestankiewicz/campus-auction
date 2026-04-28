@@ -95,6 +95,13 @@ export function createListingDetails(listing: Listing): string {
 
   return `
     <section class="mx-auto max-w-6xl space-y-8 text-text">
+        <!-- Back button -->
+    <a 
+      href="javascript:history.back()" 
+      class="inline-flex items-center gap-2 text-sm text-muted transition hover:text-text"
+    >
+      ← Back
+    </a>
       <div class="grid gap-8 lg:grid-cols-[1fr_1.15fr]">
         
         <!-- Left image column -->
