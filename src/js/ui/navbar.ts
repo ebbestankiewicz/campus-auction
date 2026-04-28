@@ -3,14 +3,14 @@ import { clearAuth, getUser, isLoggedIn } from "../utils/storage";
 
 function createVisitorNavbar(): string {
   return `
-    <nav class="flex items-center justify-between px-6 py-4 text-white">
+    <nav class="flex items-center justify-between border-b border-border bg-bg px-6 py-4 text-text">
       <a href="/index.html" class="text-lg font-bold">Campus Auction</a>
 
       <div class="flex gap-3">
-        <a href="/login.html" class="rounded-xl border border-purple-500 px-4 py-2 text-sm font-semibold text-purple-300 hover:bg-purple-500 hover:text-white">
+        <a href="/login.html" class="rounded-xl border border-primary px-4 py-2 text-sm font-semibold text-primary-muted transition hover:bg-primary hover:text-text">
           Login
         </a>
-        <a href="/register.html" class="rounded-xl bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-700">
+        <a href="/register.html" class="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-text transition hover:bg-primary-hover">
           Register
         </a>
       </div>
@@ -24,27 +24,27 @@ function createLoggedInNavbar(credits: number, avatarUrl?: string): string {
   const avatar = avatarUrl || user?.avatar?.url || "";
 
   return `
-    <nav class="flex items-center justify-between px-6 py-4 text-white">
+    <nav class="flex items-center justify-between border-b border-border bg-bg px-6 py-4 text-text">
       <a href="/index.html" class="text-lg font-bold">Campus Auction</a>
 
       <div class="flex items-center gap-4">
-        <span class="rounded-full border border-purple-500 bg-purple-950 px-4 py-2 text-sm font-semibold text-purple-300">
+        <span class="rounded-full border border-primary bg-primary-soft px-4 py-2 text-sm font-semibold text-primary-muted">
           Credits: ${credits}
         </span>
 
-        <a href="/create-listing.html" class="hidden rounded-xl bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-700 sm:inline-flex">
+        <a href="/create-listing.html" class="hidden rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-text transition hover:bg-primary-hover sm:inline-flex">
           Create listing
         </a>
 
         <a href="/profile.html" class="flex items-center gap-2">
           ${
             avatar
-              ? `<img src="${avatar}" alt="${name}" class="h-9 w-9 rounded-full object-cover" />`
-              : `<span class="rounded-full border border-slate-700 px-3 py-2 text-sm">${name}</span>`
+              ? `<img src="${avatar}" alt="${name}" class="h-9 w-9 rounded-full border border-border object-cover" />`
+              : `<span class="rounded-full border border-border px-3 py-2 text-sm text-muted">${name}</span>`
           }
         </a>
 
-        <button id="logoutBtn" type="button" class="text-sm text-slate-300 hover:text-white">
+        <button id="logoutBtn" type="button" class="text-sm text-muted transition hover:text-text">
           Logout
         </button>
       </div>

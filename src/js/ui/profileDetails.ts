@@ -15,12 +15,12 @@ function createMiniListingCard(listing: ProfileListing): string {
   const alt = listing.media?.[0]?.alt || listing.title;
 
   return `
-    <a href="/listing.html?id=${listing.id}" class="block overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-sm transition hover:-translate-y-1 hover:border-purple-500 hover:shadow-lg">
+    <a href="/listing.html?id=${listing.id}" class="block overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition hover:-translate-y-1 hover:border-primary hover:shadow-lg">
       <img src="${image}" alt="${escapeHtml(alt)}" class="h-40 w-full object-cover" />
       <div class="space-y-2 p-4">
-        <h3 class="line-clamp-1 text-lg font-semibold text-white">${escapeHtml(listing.title)}</h3>
-        <p class="line-clamp-2 text-sm text-slate-400">${escapeHtml(listing.description || "No description available.")}</p>
-        <p class="text-xs text-slate-500">Ends ${new Date(listing.endsAt).toLocaleDateString()}</p>
+        <h3 class="line-clamp-1 text-lg font-semibold text-text">${escapeHtml(listing.title)}</h3>
+        <p class="line-clamp-2 text-sm text-muted">${escapeHtml(listing.description || "No description available.")}</p>
+        <p class="text-xs text-muted-soft">Ends ${new Date(listing.endsAt).toLocaleDateString()}</p>
       </div>
     </a>
   `;
@@ -39,27 +39,28 @@ export function createProfileDetails(profile: Profile): string {
 
   const listingsHtml = profile.listings?.length
     ? profile.listings.map(createMiniListingCard).join("")
-    : `<p class="rounded-xl border border-slate-800 bg-slate-900 p-4 text-slate-400">No listings created yet.</p>`;
+    : `<p class="rounded-xl border border-border bg-surface p-4 text-muted">No listings created yet.</p>`;
 
   const winsHtml = profile.wins?.length
     ? profile.wins.map(createMiniListingCard).join("")
-    : `<p class="rounded-xl border border-slate-800 bg-slate-900 p-4 text-slate-400">No wins yet.</p>`;
+    : `<p class="rounded-xl border border-border bg-surface p-4 text-muted">No wins yet.</p>`;
 
   return `
-    <section class="space-y-8 text-white">
-      <div class="overflow-hidden rounded-3xl border border-slate-800 bg-slate-950 shadow-xl">
+    <section class="space-y-8 text-text">
+      
+      <div class="overflow-hidden rounded-3xl border border-border bg-bg shadow-xl">
         <img src="${banner}" alt="${escapeHtml(bannerAlt)}" class="h-48 w-full object-cover sm:h-64" />
 
         <div class="relative px-6 pb-6">
-          <img src="${avatar}" alt="${escapeHtml(avatarAlt)}" class="-mt-16 h-32 w-32 rounded-full border-4 border-slate-950 object-cover shadow-lg" />
+          <img src="${avatar}" alt="${escapeHtml(avatarAlt)}" class="-mt-16 h-32 w-32 rounded-full border-4 border-bg object-cover shadow-lg" />
 
           <div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h1 class="text-3xl font-bold">${escapeHtml(profile.name)}</h1>
-              <p class="text-sm text-slate-400">${escapeHtml(profile.email)}</p>
+              <p class="text-sm text-muted">${escapeHtml(profile.email)}</p>
             </div>
 
-            <a href="/edit-profile.html" class="inline-flex items-center justify-center rounded-xl border border-purple-500 px-5 py-2 text-sm font-semibold text-purple-300 transition hover:bg-purple-500 hover:text-white">
+            <a href="/edit-profile.html" class="inline-flex items-center justify-center rounded-xl border border-primary px-5 py-2 text-sm font-semibold text-primary-muted transition hover:bg-primary hover:text-text">
               Edit profile
             </a>
           </div>
@@ -67,25 +68,29 @@ export function createProfileDetails(profile: Profile): string {
       </div>
 
       <div class="grid gap-4 md:grid-cols-3">
-        <article class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-          <p class="text-sm text-slate-400">Credits</p>
-          <p class="mt-1 text-2xl font-bold text-purple-300">${profile.credits}</p>
+        <article class="rounded-2xl border border-border bg-surface p-5">
+          <p class="text-sm text-muted">Credits</p>
+          <p class="mt-1 text-2xl font-bold text-primary-muted">${profile.credits}</p>
         </article>
 
-        <article class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-          <p class="text-sm text-slate-400">Listings</p>
-          <p class="mt-1 text-2xl font-bold">${profile._count?.listings ?? profile.listings?.length ?? 0}</p>
+        <article class="rounded-2xl border border-border bg-surface p-5">
+          <p class="text-sm text-muted">Listings</p>
+          <p class="mt-1 text-2xl font-bold">
+            ${profile._count?.listings ?? profile.listings?.length ?? 0}
+          </p>
         </article>
 
-        <article class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-          <p class="text-sm text-slate-400">Wins</p>
-          <p class="mt-1 text-2xl font-bold">${profile._count?.wins ?? profile.wins?.length ?? 0}</p>
+        <article class="rounded-2xl border border-border bg-surface p-5">
+          <p class="text-sm text-muted">Wins</p>
+          <p class="mt-1 text-2xl font-bold">
+            ${profile._count?.wins ?? profile.wins?.length ?? 0}
+          </p>
         </article>
       </div>
 
-      <article class="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+      <article class="rounded-2xl border border-border bg-surface p-6">
         <h2 class="text-xl font-semibold">Bio</h2>
-        <p class="mt-3 leading-relaxed text-slate-300">${escapeHtml(bio)}</p>
+        <p class="mt-3 leading-relaxed text-muted">${escapeHtml(bio)}</p>
       </article>
 
       <section>
@@ -101,6 +106,7 @@ export function createProfileDetails(profile: Profile): string {
           ${winsHtml}
         </div>
       </section>
+
     </section>
   `;
 }
