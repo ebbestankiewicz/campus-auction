@@ -9,21 +9,19 @@ function showMessage(message: string, type: "success" | "error"): void {
   if (!messageElement) return;
 
   messageElement.textContent = message;
-  messageElement.className = "rounded-xl p-3 text-sm";
+  messageElement.className = "rounded-xl border p-3 text-sm";
 
   if (type === "success") {
     messageElement.classList.add(
-      "bg-green-950",
-      "text-green-300",
-      "border",
-      "border-green-800",
+      "bg-success-soft",
+      "text-success-muted",
+      "border-success",
     );
   } else {
     messageElement.classList.add(
-      "bg-red-950",
-      "text-red-300",
-      "border",
-      "border-red-800",
+      "bg-danger-soft",
+      "text-danger-muted",
+      "border-danger",
     );
   }
 }
