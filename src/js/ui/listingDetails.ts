@@ -94,11 +94,20 @@ export function createListingDetails(listing: Listing): string {
         `;
 
   return `
-    <section class="mx-auto max-w-5xl space-y-8 text-text">
-      <article class="overflow-hidden rounded-3xl border border-border bg-surface shadow-xl">
-        <img src="${image}" alt="${alt}" class="h-72 w-full object-cover sm:h-96" />
+    <section class="mx-auto max-w-6xl space-y-8 text-text">
+      <div class="grid gap-8 lg:grid-cols-[1fr_1.15fr]">
+        
+        <!-- Left image column -->
+        <section class="overflow-hidden rounded-3xl border border-border bg-surface shadow-xl">
+          <img
+            src="${image}"
+            alt="${alt}"
+            class="h-80 w-full object-cover lg:h-[560px]"
+          />
+        </section>
 
-        <div class="space-y-6 p-6">
+        <!-- Right content column -->
+        <section class="space-y-6">
           <div>
             <p class="mb-2 text-sm text-muted">Listed by ${sellerName}</p>
             <h1 class="text-3xl font-bold">${listing.title}</h1>
@@ -109,26 +118,26 @@ export function createListingDetails(listing: Listing): string {
             ${ownerActions}
           </div>
 
-          <div class="grid gap-4 sm:grid-cols-3">
-            <div class="rounded-2xl border border-border bg-bg p-4">
+          <div class="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+            <div class="rounded-2xl border border-border bg-surface p-4">
               <p class="text-sm text-muted">Seller</p>
               <p class="font-semibold">${sellerName}</p>
             </div>
 
-            <div class="rounded-2xl border border-border bg-bg p-4">
+            <div class="rounded-2xl border border-border bg-surface p-4">
               <p class="text-sm text-muted">Highest bid</p>
               <p class="font-semibold text-primary-muted">${highestBid} credits</p>
             </div>
 
-            <div class="rounded-2xl border border-border bg-bg p-4">
+            <div class="rounded-2xl border border-border bg-surface p-4">
               <p class="text-sm text-muted">Ends</p>
               <p class="font-semibold">${new Date(listing.endsAt).toLocaleString()}</p>
             </div>
           </div>
 
           ${bidSection}
-        </div>
-      </article>
+        </section>
+      </div>
 
       <section>
         <h2 class="mb-4 text-2xl font-bold">Bid history</h2>
