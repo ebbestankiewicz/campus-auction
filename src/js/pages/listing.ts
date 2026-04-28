@@ -2,6 +2,7 @@ import "../../css/main.css";
 import { getListingById, placeBid, deleteListing } from "../api/listings";
 import { createListingDetails } from "../ui/listingDetails";
 import { renderNavbar } from "../ui/navbar";
+import { createLoadingSpinner } from "../ui/loading";
 
 let currentListingId: string | null = null;
 
@@ -44,7 +45,7 @@ async function loadListing(): Promise<void> {
     listingContainer.innerHTML = `<p class="text-muted">Listing ID is missing.</p>`;
     return;
   }
-
+  listingContainer.innerHTML = createLoadingSpinner("Loading listing...");
   try {
     const listing = await getListingById(id);
 
@@ -81,7 +82,7 @@ function setupBidForm(): void {
 
     try {
       await placeBid(currentListingId, amount);
-      showBidMessage("Bid placed successfully.", "success");
+      showToast("Bid placed successfully.", "success");
 
       setTimeout(() => {
         loadListing(); // refresh listing after bid
@@ -92,7 +93,7 @@ function setupBidForm(): void {
       const message =
         error instanceof Error ? error.message : "Failed to place bid.";
 
-      showBidMessage(message, "error");
+      showToast(message, "error");
     }
   });
 }

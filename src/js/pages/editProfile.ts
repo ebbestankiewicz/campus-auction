@@ -1,8 +1,10 @@
 import "../../css/main.css";
 import { getProfile, updateProfile } from "../api/profiles";
 import { renderNavbar } from "../ui/navbar";
+import { showToast } from "../ui/toast";
 import { requireAuth } from "../utils/authGuard";
 import { getUser } from "../utils/storage";
+import { createLoadingSpinner } from "../ui/loading";
 
 function showMessage(message: string, type: "success" | "error"): void {
   const messageElement = document.querySelector<HTMLElement>("#formMessage");
@@ -40,7 +42,7 @@ async function loadCurrentProfile(): Promise<void> {
   const bioInput = document.querySelector<HTMLTextAreaElement>("#bio");
 
   if (!avatarInput || !bannerInput || !bioInput) return;
-
+  showMessage("Loading profile details...", "success");
   try {
     const profile = await getProfile(user.name);
 
@@ -95,14 +97,14 @@ function setupEditProfileForm(): void {
           : undefined,
       });
 
-      showMessage("Profile updated successfully.", "success");
+      showToast("Profile updated successfully.", "success");
 
       setTimeout(() => {
         window.location.href = "/profile.html";
       }, 800);
     } catch (error) {
       console.error(error);
-      showMessage(
+      showToast(
         "Failed to update profile. Please check your URLs and try again.",
         "error",
       );

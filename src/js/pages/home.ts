@@ -3,6 +3,7 @@ import { getListings } from "../api/listings";
 import type { Listing } from "../api/listings";
 import { createListingCard } from "../ui/cards";
 import { renderNavbar } from "../ui/navbar";
+import { createLoadingSpinner } from "../ui/loading";
 
 let allListings: Listing[] = [];
 
@@ -113,7 +114,7 @@ async function loadListings(): Promise<void> {
   const container = document.querySelector<HTMLElement>("#listings");
 
   if (!container) return;
-
+  container.innerHTML = createLoadingSpinner("Loading listings...");
   try {
     const listings = await getListings();
     allListings = listings;
