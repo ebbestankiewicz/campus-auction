@@ -15,8 +15,8 @@ function showMessage(message: string, isError = true): void {
 
   messageElement.textContent = message;
   messageElement.className = isError
-    ? "text-red-600 text-sm"
-    : "text-green-600 text-sm";
+    ? "rounded-xl border border-danger bg-danger-soft p-3 text-sm text-danger-muted"
+    : "rounded-xl border border-success bg-success-soft p-3 text-sm text-success-muted";
 }
 
 function setupRegisterForm(): void {
