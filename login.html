@@ -5,37 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
   </head>
-  <body>
-    <header id="navbar"></header>
-    <main class="max-w-150 mx-auto p-6">
-      <h1 class="text-2xl font-semibold mb-6">Login</h1>
 
-      <form id="loginForm" class="flex flex-col gap-4">
-        <div>
-          <label for="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            class="border p-2 w-full"
-          />
-        </div>
+  <body class="bg-bg text-text">
+    <header>
+      <div id="navbar"></div>
+    </header>
 
-        <div>
-          <label for="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            class="border p-2 w-full"
-          />
-        </div>
+    <main class="mx-auto max-w-150 p-6">
+      <section
+        class="rounded-3xl border border-border bg-surface p-6 shadow-xl"
+      >
+        <h1 class="text-2xl font-semibold">Login</h1>
+        <p class="mt-2 text-muted">Sign in to your account to start bidding.</p>
 
-        <p id="loginMessage" class="text-sm"></p>
+        <form id="loginForm" class="mt-6 flex flex-col gap-4">
+          <div>
+            <label
+              for="email"
+              class="mb-2 block text-sm font-medium text-muted"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="name@stud.noroff.no"
+              class="w-full rounded-xl border border-border bg-bg px-4 py-3 text-text outline-none placeholder:text-muted focus:border-primary"
+            />
+          </div>
 
-        <button type="submit" class="border px-4 py-2">Login</button>
-      </form>
+          <div>
+            <label
+              for="password"
+              class="mb-2 block text-sm font-medium text-muted"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              class="w-full rounded-xl border border-border bg-bg px-4 py-3 text-text outline-none placeholder:text-muted focus:border-primary"
+            />
+          </div>
+
+          <p id="loginMessage" class="text-sm text-muted"></p>
+
+          <button
+            type="submit"
+            class="rounded-xl bg-primary px-5 py-3 font-semibold text-text transition hover:bg-primary-hover"
+          >
+            Login
+          </button>
+
+          <p class="text-sm text-muted">
+            Don’t have an account?
+            <a
+              href="/register.html"
+              class="font-semibold text-primary-muted hover:text-text"
+            >
+              Register
+            </a>
+          </p>
+        </form>
+      </section>
     </main>
+
     <script type="module" src="/src/js/pages/login.ts"></script>
   </body>
 </html>
