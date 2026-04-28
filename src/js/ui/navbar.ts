@@ -32,10 +32,6 @@ function createLoggedInNavbar(credits: number, avatarUrl?: string): string {
           Credits: ${credits}
         </span>
 
-        <a href="/create-listing.html" class="hidden rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-text transition hover:bg-primary-hover sm:inline-flex">
-          Create listing
-        </a>
-
         <a href="/profile.html" class="flex items-center gap-2">
           ${
             avatar
