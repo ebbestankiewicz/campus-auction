@@ -4,7 +4,6 @@ import { renderNavbar } from "../ui/navbar";
 import { showToast } from "../ui/toast";
 import { requireAuth } from "../utils/authGuard";
 import { getUser } from "../utils/storage";
-import { createLoadingSpinner } from "../ui/loading";
 
 function showMessage(message: string, type: "success" | "error"): void {
   const messageElement = document.querySelector<HTMLElement>("#formMessage");
