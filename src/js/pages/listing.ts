@@ -3,6 +3,7 @@ import { getListingById, placeBid, deleteListing } from "../api/listings";
 import { createListingDetails } from "../ui/listingDetails";
 import { renderNavbar } from "../ui/navbar";
 import { createLoadingSpinner } from "../ui/loading";
+import { showToast } from "../ui/toast";
 
 let currentListingId: string | null = null;
 
