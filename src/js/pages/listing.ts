@@ -13,19 +13,28 @@ function showBidMessage(message: string, type: "success" | "error"): void {
   if (!messageElement) return;
 
   messageElement.textContent = message;
-
-  messageElement.className = "mt-3 rounded-xl border p-3 text-sm";
+  messageElement.classList.remove(
+    "hidden",
+    "bg-danger-soft",
+    "text-danger-muted",
+    "border-danger",
+    "bg-success-soft",
+    "text-success-muted",
+    "border-success",
+  );
 
   if (type === "success") {
     messageElement.classList.add(
       "bg-success-soft",
       "text-success-muted",
+      "border",
       "border-success",
     );
   } else {
     messageElement.classList.add(
       "bg-danger-soft",
       "text-danger-muted",
+      "border",
       "border-danger",
     );
   }
@@ -40,32 +49,40 @@ async function loadListing(): Promise<void> {
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
+
   currentListingId = id;
 
   if (!id) {
-    listingContainer.innerHTML = `<p class="text-muted">Listing ID is missing.</p>`;
+    listingContainer.innerHTML = `
+      <p class="text-muted">Listing ID is missing.</p>
+    `;
     return;
   }
+
   listingContainer.innerHTML = createLoadingSpinner("Loading listing...");
+
   try {
     const listing = await getListingById(id);
 
-    // Render HTML first
     listingContainer.innerHTML = createListingDetails(listing);
 
-    // THEN attach events
     setupBidForm();
     setupDelete();
   } catch (error) {
     console.error(error);
-    listingContainer.innerHTML = `<p class="text-muted">Failed to load listing.</p>`;
+
+    listingContainer.innerHTML = `
+      <p class="text-muted">Failed to load listing.</p>
+    `;
   }
 }
 
 function setupBidForm(): void {
   const form = document.querySelector<HTMLFormElement>("#bidForm");
 
-  if (!form || !currentListingId) return;
+  const listingId = currentListingId;
+
+  if (!form || !listingId) return;
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -82,17 +99,22 @@ function setupBidForm(): void {
     }
 
     try {
-      await placeBid(currentListingId, amount);
+      await placeBid(listingId, amount);
+
+      showBidMessage("Bid placed successfully.", "success");
+
       showToast("Bid placed successfully.", "success");
 
       setTimeout(() => {
-        loadListing(); // refresh listing after bid
+        loadListing();
       }, 700);
     } catch (error) {
       console.error(error);
 
       const message =
         error instanceof Error ? error.message : "Failed to place bid.";
+
+      showBidMessage(message, "error");
 
       showToast(message, "error");
     }
@@ -102,7 +124,9 @@ function setupBidForm(): void {
 function setupDelete(): void {
   const btn = document.querySelector<HTMLButtonElement>("#deleteListingBtn");
 
-  if (!btn || !currentListingId) return;
+  const listingId = currentListingId;
+
+  if (!btn || !listingId) return;
 
   btn.addEventListener("click", async () => {
     const confirmed = confirm("Are you sure you want to delete this listing?");
@@ -110,11 +134,17 @@ function setupDelete(): void {
     if (!confirmed) return;
 
     try {
-      await deleteListing(currentListingId);
-      window.location.href = "/index.html";
+      await deleteListing(listingId);
+
+      showToast("Listing deleted successfully.", "success");
+
+      setTimeout(() => {
+        window.location.href = "/index.html";
+      }, 500);
     } catch (error) {
       console.error(error);
-      alert("Failed to delete listing.");
+
+      showToast("Failed to delete listing.", "error");
     }
   });
 }
