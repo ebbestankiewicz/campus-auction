@@ -15,7 +15,7 @@ async function loadListing(): Promise<void> {
 
   (document.querySelector("#title") as HTMLInputElement).value = listing.title;
   (document.querySelector("#description") as HTMLTextAreaElement).value =
-    listing.description;
+    listing.description || "";
   (document.querySelector("#mediaUrl") as HTMLInputElement).value =
     listing.media?.[0]?.url || "";
   (document.querySelector("#tags") as HTMLInputElement).value =
