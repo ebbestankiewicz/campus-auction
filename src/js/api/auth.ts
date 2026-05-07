@@ -24,6 +24,11 @@ export async function registerUser(data: RegisterData) {
   return json.data;
 }
 
+type LoginData = {
+  email: string;
+  password: string;
+};
+
 export async function loginUser(data: LoginData) {
   const response = await fetch(`${BASE_URL}/auth/login`, {
     method: "POST",
