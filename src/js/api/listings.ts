@@ -68,10 +68,6 @@ export async function getListingById(id: string): Promise<Listing> {
   return json.data;
 }
 
-type BidResponse = {
-  data: Listing;
-};
-
 export async function placeBid(
   listingId: string,
   amount: number,
