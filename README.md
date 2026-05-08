@@ -8,7 +8,7 @@ The project was built using TypeScript, Vite, Tailwind CSS, and the Noroff Aucti
 
 # Live Site
 
-[Open Application] https://campus-auction.netlify.app/
+[Open Application](https://campus-auction.netlify.app/)
 
 ---
 
@@ -135,7 +135,7 @@ src/
 
 # 🎨 Figma
 
-[Figma Design & Style Guide] https://www.figma.com/design/crpZ6y9crMOY2TWBU3fv6z/Semester-Project-2?node-id=0-1&t=EizoFNh9Pfn38z0a-1
+[Figma Design & Style Guide](https://www.figma.com/design/crpZ6y9crMOY2TWBU3fv6z/Semester-Project-2?node-id=0-1&t=EizoFNh9Pfn38z0a-1)
 
 ---
 
