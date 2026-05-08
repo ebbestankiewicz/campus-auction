@@ -133,19 +133,19 @@ src/
 
 ---
 
-# 🎨 Figma
+# Figma
 
 [Figma Design & Style Guide](https://www.figma.com/design/crpZ6y9crMOY2TWBU3fv6z/Semester-Project-2?node-id=0-1&t=EizoFNh9Pfn38z0a-1)
 
 ---
 
-# 📋 Project Management
+# Project Management
 
 [GitHub Project Board](https://github.com/users/ebbestankiewicz/projects/6)
 
 ---
 
-# ♿ Accessibility & Validation
+# Accessibility & Validation
 
 The project includes:
 
@@ -182,7 +182,7 @@ All generated code was reviewed, tested, and adapted during development.
 
 ---
 
-# 👤 Author
+# Author
 
 Ebbe Stankiewicz
 
